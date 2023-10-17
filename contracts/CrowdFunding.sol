@@ -37,10 +37,9 @@ contract Crowdfunding {
         require(fundraiser.deadline > block.timestamp, "Fundraiser deadline passed");
         require(fundraiser.goalReached == false, "Fundraiser goal reached");
 
-        token.transferFrom(msg.sender, address(this), amount);
         donations[fundraiserId][msg.sender] += amount;
         fundraiser.raisedAmount += amount;
-
+        token.transferFrom(msg.sender, address(this), amount);
         if (fundraiser.raisedAmount >= fundraiser.goal) {
             fundraiser.goalReached = true;
         }
